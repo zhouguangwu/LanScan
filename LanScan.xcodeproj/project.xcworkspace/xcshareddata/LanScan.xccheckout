@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>01ED1CB4-E56A-4F19-A90D-23DFBE7032C9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LanScan</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F626757E-E09D-40C5-827E-5C1A7D8020E4</key>
+		<string>https://github.com/zhouguangwu/LanScan.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LanScan.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F626757E-E09D-40C5-827E-5C1A7D8020E4</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/zhouguangwu/LanScan.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F626757E-E09D-40C5-827E-5C1A7D8020E4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F626757E-E09D-40C5-827E-5C1A7D8020E4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LanScan</string>
+		</dict>
+	</array>
+</dict>
+</plist>
