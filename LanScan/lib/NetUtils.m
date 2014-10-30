@@ -374,7 +374,7 @@
         struct rt_msghdr *rtm = (struct rt_msghdr *)cur;
         struct sockaddr_inarp *sin = (struct sockaddr_inarp *)(rtm + 1);
         struct sockaddr_dl *sdl = (struct sockaddr_dl *)(sin + 1);
-        unsigned char *cp = LLADDR(sdl);
+        unsigned char *cp = (unsigned char *)LLADDR(sdl);
         if (cp[5] != 0) {
             NSString *mAddr = [NSString stringWithFormat:@"ip=>%s mac: %x:%x:%x:%x:%x:%x",inet_ntoa(sin->sin_addr),cp[0], cp[1], cp[2], cp[3], cp[4], cp[5]];
             [arps addObject:mAddr];

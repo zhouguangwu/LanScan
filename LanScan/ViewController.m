@@ -48,6 +48,11 @@
             });
         }
     });
+    
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://114.215.128.233/"]];
+    //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://github.com/hhfa008/HTTPSURLProtocol/blob/master/HTTPSURLProtocol.m"]];
+    [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 - (void) _reload{
@@ -57,4 +62,26 @@
                       ];
 }
 
+
+- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace{
+    NSLog(@"%@",protectionSpace.authenticationMethod);
+    return YES;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
+    NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+    NSLog(@"%@,%@,%d",credential,credential.password,credential.hasPassword);
+    [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];//自己的必须这样
+//    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];//github可以不用证书, 但是自己的必须要证书
+    NSLog(@"%@",challenge);
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",str);
+}
 @end
