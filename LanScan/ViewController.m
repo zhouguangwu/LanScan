@@ -10,6 +10,8 @@
 #import "NetUtils.h"
 #import <netinet/in.h>
 #import <arpa/inet.h>
+#import "NginxViewController.h"
+#import "AppDelegate.h"
 @interface ViewController (){
     UITextView *_infoView;
 }
@@ -29,30 +31,36 @@
 {
     [super viewDidLoad];
     [self _reload];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        struct in_addr ipAddr,maskAddr;//ntoa出来是大端的
-        inet_aton([NetUtils netMask].UTF8String, &maskAddr);
-        inet_aton([NetUtils localIp2].UTF8String, &ipAddr);
-        unsigned int hostCount = 0xffffffff / maskAddr.s_addr - 2;
-        for (unsigned int i = 1; i <= hostCount; i++) {
-            unsigned int netIp = ipAddr.s_addr & maskAddr.s_addr;
-            struct in_addr targetIp = {netIp + htonl(i)};
-            NSString *ipStr = [NSString stringWithFormat:@"%s",inet_ntoa(targetIp)];
-            BOOL isOk = [NetUtils ping:ipStr];
-            NSLog(@"ping %@",ipStr);
-            if (isOk) {
-                NSLog(@"%@找到一个",ipStr);
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self _reload];
-            });
-        }
-    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        struct in_addr ipAddr,maskAddr;//ntoa出来是大端的
+//        inet_aton([NetUtils netMask].UTF8String, &maskAddr);
+//        inet_aton([NetUtils localIp2].UTF8String, &ipAddr);
+//        unsigned int hostCount = 0xffffffff / maskAddr.s_addr - 2;
+//        for (unsigned int i = 1; i <= hostCount; i++) {
+//            unsigned int netIp = ipAddr.s_addr & maskAddr.s_addr;
+//            struct in_addr targetIp = {netIp + htonl(i)};
+//            NSString *ipStr = [NSString stringWithFormat:@"%s",inet_ntoa(targetIp)];
+//            BOOL isOk = [NetUtils ping:ipStr];
+//            NSLog(@"ping %@",ipStr);
+//            if (isOk) {
+//                NSLog(@"%@找到一个",ipStr);
+//            }
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self _reload];
+//            });
+//        }
+//    });
     
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://114.215.128.233/"]];
     //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://github.com/hhfa008/HTTPSURLProtocol/blob/master/HTTPSURLProtocol.m"]];
     [NSURLConnection connectionWithRequest:request delegate:self];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn.frame = CGRectMake(0, 430, 80, 30);
+    [btn setTitle:@"nginx开始" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(_nginx:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
 - (void) _reload{
@@ -60,6 +68,12 @@
     _infoView.text = [NSString stringWithFormat:@"当前ip,%@,掩码,%@,网关:%@,广播地址%@,ssid:%@,bssid:%@,mac:%@,当前网络状态 %@,\n当前的内网设备有%@",
                       [NetUtils localIp2],[NetUtils netMask],[NetUtils gateway2],[NetUtils broadcastIp],[NetUtils ssid],[NetUtils bssid],[NetUtils mac],status[[NetUtils currentNetWorkStatus]],[NetUtils arpTable]
                       ];
+}
+
+- (void)_nginx:(UIButton *)sender{
+    NginxViewController *ngVC = [[NginxViewController alloc] init];
+//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:ngVC];
+    [(AppDelegate *)[UIApplication sharedApplication].delegate window].rootViewController = ngVC;
 }
 
 

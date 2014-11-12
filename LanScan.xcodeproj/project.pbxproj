@@ -20,6 +20,8 @@
 		0E12B3F519EBB1C800A14092 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E12B3D419EBB1C700A14092 /* Foundation.framework */; };
 		0E12B3F619EBB1C800A14092 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E12B3D819EBB1C800A14092 /* UIKit.framework */; };
 		0E12B40F19EBB21D00A14092 /* NetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E12B40D19EBB21D00A14092 /* NetUtils.m */; };
+		0E3F8B1C1A11F68C00EA9095 /* Nginx.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8B1B1A11F68C00EA9095 /* Nginx.m */; };
+		0E84D6101A134070004532D6 /* NginxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E84D60F1A134070004532D6 /* NginxViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,10 @@
 		0E12B40D19EBB21D00A14092 /* NetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetUtils.m; sourceTree = "<group>"; };
 		0E12B40E19EBB21D00A14092 /* route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = route.h; sourceTree = "<group>"; };
 		0E12B41019EBB4D900A14092 /* ip_icmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ip_icmp.h; sourceTree = "<group>"; };
+		0E3F8B1A1A11F68C00EA9095 /* Nginx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nginx.h; sourceTree = "<group>"; };
+		0E3F8B1B1A11F68C00EA9095 /* Nginx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nginx.m; sourceTree = "<group>"; };
+		0E84D60E1A134070004532D6 /* NginxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NginxViewController.h; sourceTree = "<group>"; };
+		0E84D60F1A134070004532D6 /* NginxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NginxViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,8 @@
 				0E12B3E619EBB1C800A14092 /* Main.storyboard */,
 				0E12B3E919EBB1C800A14092 /* ViewController.h */,
 				0E12B3EA19EBB1C800A14092 /* ViewController.m */,
+				0E84D60E1A134070004532D6 /* NginxViewController.h */,
+				0E84D60F1A134070004532D6 /* NginxViewController.m */,
 				0E12B3EC19EBB1C800A14092 /* Images.xcassets */,
 				0E12B3DB19EBB1C800A14092 /* Supporting Files */,
 			);
@@ -139,6 +147,8 @@
 		0E12B40919EBB21C00A14092 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				0E3F8B1A1A11F68C00EA9095 /* Nginx.h */,
+				0E3F8B1B1A11F68C00EA9095 /* Nginx.m */,
 				0E12B41019EBB4D900A14092 /* ip_icmp.h */,
 				0E12B40A19EBB21D00A14092 /* if_arp.h */,
 				0E12B40B19EBB21D00A14092 /* if_ether.h */,
@@ -246,6 +256,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E12B3EB19EBB1C800A14092 /* ViewController.m in Sources */,
+				0E84D6101A134070004532D6 /* NginxViewController.m in Sources */,
+				0E3F8B1C1A11F68C00EA9095 /* Nginx.m in Sources */,
 				0E12B40F19EBB21D00A14092 /* NetUtils.m in Sources */,
 				0E12B3E519EBB1C800A14092 /* AppDelegate.m in Sources */,
 				0E12B3E119EBB1C800A14092 /* main.m in Sources */,
