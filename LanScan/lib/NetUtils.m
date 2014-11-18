@@ -196,11 +196,10 @@
 #endif
 }
 
-+ (struct udp_result_info) udpTo:(NSString *)ip port:(int)port message:(struct udp_info)info{
-    //    message = @"~123234243~";
++ (NSData *) udpTo:(NSString *)ip port:(int)port data:(NSData *)data{
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
      const int opt = 1;
-    NSAssert(setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (char *)&opt, sizeof(opt)) != -1, @"设置成广播失败");
+    assert(setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (char *)&opt, sizeof(opt)) != -1);
     
     NSAssert(sock != -1, @"创建sockt失败");
     if (fcntl(sock, F_SETFL, O_NONBLOCK) == -1){//io非阻塞
@@ -210,40 +209,37 @@
     s_addr.sin_family = AF_INET;//internet套接字
     s_addr.sin_port = htons(port);
     s_addr.sin_addr.s_addr = inet_addr([ip UTF8String]);//server限制
-    NSLog(@"发送的udp信息,ip:%@,port:%d,message是:%s,%d",ip,port,info.message,info.length);
-    for (int i = 0; i<info.length; i++) {
-        printf(" 0x%02x, ",info.message[i]);
+    NSLog(@"发送的udp信息,ip:%@,port:%d,message是:%s,%d",ip,port,(char *)data.bytes,(int)data.length);
+    for (int i = 0; i<data.length; i++) {
+        printf(" 0x%02x, ",((char *)data.bytes)[i]);
     }
-    int resultLen = 0;
+    ssize_t resultLen = 0;
     unsigned char buff[3000] = {0};
-    int len = sendto(sock, info.message, info.length, 0, (struct sockaddr *)&s_addr, sizeof(s_addr));
-    NSLog(@"sendto完了%d",len);
+    ssize_t len = sendto(sock, data.bytes, (size_t)data.length, 0, (struct sockaddr *)&s_addr, sizeof(s_addr));
+    NSLog(@"sendto完了%zd",len);
     NSAssert(len >= 0, @"发送失败");
     struct sockaddr_in server_addr;
     socklen_t server_addr_length;
     NSLog(@"开始 recvfrom");
     for (int i = 0 ; i <= 10; i++) {
         resultLen = recvfrom(sock, buff, sizeof(buff) - 1, 0, (struct sockaddr *)&server_addr, &server_addr_length);
-        NSLog(@"%d",resultLen);
+        NSLog(@"%zd",resultLen);
         if (resultLen <= 0){
             NSLog(@"没收到, 开始sleep,然后重试");
             usleep(300000);//0.3秒
         }else{
-            NSLog(@"收到消息 ip=%s, port=%d, message=%s,resultLen=%d",inet_ntoa(server_addr.sin_addr),server_addr.sin_port, buff,resultLen);
+            NSLog(@"收到消息 ip=%s, port=%d, message=%s,resultLen=%zd",inet_ntoa(server_addr.sin_addr),server_addr.sin_port, buff,resultLen);
             break;
         }
     }
-    for (int i = 0; i < resultLen; i++) {
-        printf(" 0x%02x, ",buff[i]);
-    }
-    struct udp_result_info udp_result = {0};
+//    for (int i = 0; i < resultLen; i++) {
+//        printf(" 0x%02x, ",buff[i]);
+//    }
     if (resultLen > 0) {
-        udp_result.length = resultLen;
-        memcpy(udp_result.message, buff, resultLen);
+        return [NSData dataWithBytes:buff length:resultLen];
+    }else{
+        return nil;
     }
-    NSLog(@"udp_result_info,%d",udp_result.length);
-
-    return udp_result;
 }
 
 + (CurrentNetworkStatus) currentNetWorkStatus{

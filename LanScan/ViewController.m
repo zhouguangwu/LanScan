@@ -51,7 +51,7 @@
 //        }
 //    });
     
-    
+    //https
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://114.215.128.233/"]];
     //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://github.com/hhfa008/HTTPSURLProtocol/blob/master/HTTPSURLProtocol.m"]];
     [NSURLConnection connectionWithRequest:request delegate:self];
@@ -61,6 +61,17 @@
     [btn setTitle:@"nginx开始" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(_nginx:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    UIButton *udpBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, 430, 50, 20)];
+    udpBtn.backgroundColor = [UIColor yellowColor];
+    [udpBtn setTitle:@"udp" forState:UIControlStateNormal];
+    [udpBtn addTarget:self action:@selector(_udp) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:udpBtn];
+}
+
+- (void) _udp{
+    NSData *data = [NetUtils udpTo:@"127.0.0.1" port:8888 data:[@"abc" dataUsingEncoding:NSUTF8StringEncoding]];
+    NSLog(@"udpresult=>%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 }
 
 - (void) _reload{

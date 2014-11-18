@@ -12,14 +12,6 @@ typedef enum :int{
 	NetworkStatusReachableViaWiFi,
 	NetworkStatusReachableViaWWAN
 } CurrentNetworkStatus;
-struct udp_info{
-    char *message;
-    int length;
-};
-struct udp_result_info{
-    char message[3000];
-    int length;
-};
 @interface NetUtils : NSObject
 + (NSString *) hostToIp:(NSString *) host;
 //支持ipv6
@@ -33,7 +25,7 @@ struct udp_result_info{
 + (NSString *) mac;
 + (NSString *) ssid;
 + (NSString *) bssid;
-+ (struct udp_result_info) udpTo:(NSString *)ip port:(int)port message:(struct udp_info)info;
++ (NSData *) udpTo:(NSString *)ip port:(int)port data:(NSData *)data;
 + (CurrentNetworkStatus) currentNetWorkStatus;
 + (NSString *) gateway;
 + (NSString *) gateway2;
