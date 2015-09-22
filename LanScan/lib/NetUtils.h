@@ -25,7 +25,6 @@ typedef enum :int{
 + (NSString *) mac;
 + (NSString *) ssid;
 + (NSString *) bssid;
-+ (NSData *) udpTo:(NSString *)ip port:(int)port data:(NSData *)data;
 + (CurrentNetworkStatus) currentNetWorkStatus;
 + (NSString *) gateway;
 + (NSString *) gateway2;
